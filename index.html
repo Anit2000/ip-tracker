@@ -1,13 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
     <title>Ip Tracker</title>
   </head>
   <body>
-    <div id="app">App here</div>
+    <div class="pixel-bg"></div>
+    <div class="bg"></div>
+    <header>
+      <h1 class="logo">Ip tracker</h1>
+    </header>
+    <main>
+      <section class="section__form">
+        <form method="get">
+          <div class="input-wrap">
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                style="width: 20px; height: 20px"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                />
+              </svg>
+            </span>
+            <input type="text" placeholder="Search I.P" />
+          </div>
+          <button type="submit">Search</button>
+        </form>
+      </section>
+      <section>
+        <div class="map__container">
+          <div id="map"></div>
+        </div>
+      </section>
+    </main>
+
     <script type="module" src="/main.js"></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
   </body>
 </html>
