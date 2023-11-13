@@ -39,16 +39,108 @@
                 />
               </svg>
             </span>
-            <input type="text" placeholder="Search I.P" />
+            <input type="text" name="ip" placeholder="Search I.P" />
           </div>
-          <button type="submit">Search</button>
+          <button type="submit">
+            Search<span class="loader"
+              ><svg
+                version="1.1"
+                id="L9"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 100 100"
+                enable-background="new 0 0 0 0"
+                xml:space="preserve"
+              >
+                <path
+                  fill="#fff"
+                  d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"
+                >
+                  <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="rotate"
+                    dur="1s"
+                    from="0 50 50"
+                    to="360 50 50"
+                    repeatCount="indefinite"
+                  ></animateTransform>
+                </path></svg
+            ></span>
+          </button>
         </form>
+        <div class="error_box">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+            style="width: 16px; height: 16px"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+            />
+          </svg>
+          <p class="error_message">Error will be displayed here</p>
+        </div>
       </section>
       <section>
         <div class="map__container">
           <div id="map"></div>
         </div>
       </section>
+      <div class="info_overlay">
+        <div class="info_overlay_container">
+          <div class="info_overlay_header">
+            <h3>Showing results for 142.16.16</h3>
+            <button class="ino_toggle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="info_container">
+            <ul>
+              <li>
+                <p>Location</p>
+                <p>
+                  Excitel Broadband Private Limited, Level 15, Eros Corporate
+                  Tower, Nehru Place, New Delhi - 110019, IN
+                </p>
+              </li>
+              <li>
+                <p>Region</p>
+                <p>Uttar Pradesh</p>
+              </li>
+              <li>
+                <p>Country</p>
+                <p>India</p>
+              </li>
+              <li>
+                <p>IP</p>
+                <p>8.8.8.8</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </main>
 
     <script type="module" src="/main.js"></script>
