@@ -1,6 +1,23 @@
 /*  Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 /* Fonts */
+:root,
+[data-mode="light"] {
+  --button-bg: #000;
+  --bg-secondary: #fff;
+  --button-color: #fff;
+  --primary-color: #000;
+  --secondary-color: #fff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --button-bg: #fff;
+    --button-color: #000;
+    --primary-color: #fff;
+    --bg-secondary: #373737;
+    --secondary-color: #000;
+  }
+}
 * {
   padding: 0px;
   margin: 0px;
@@ -14,6 +31,8 @@ body {
   height: 100%;
   width: 100%;
   padding-bottom: 150px;
+  background-color: var(--secondary-color);
+  transition: all 0.3s ease-in-out;
 }
 .pixel-bg {
   mask-image: linear-gradient(to bottom, transparent, black);
@@ -46,9 +65,50 @@ body {
 }
 .logo {
   font-size: 22px;
+  color: var(--primary-color);
 }
 header {
   padding: 20px 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.toggle_btn {
+  width: 40px;
+  height: 20px;
+  display: block;
+  background: var(--button-bg);
+  border-radius: 20px;
+  position: relative;
+  border: solid 2px var(--button-bg);
+  overflow: hidden;
+}
+.toggle_btn input[type="radio"] {
+  display: none;
+}
+input[value="light"]:checked label[for="light"] {
+  transform: translateX(100%);
+}
+label[for="light"] {
+  width: auto;
+  height: 100%;
+  border-radius: 1000px;
+  position: absolute;
+  background-color: #000;
+  aspect-ratio: 1/1;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+label[for="dark"] {
+  width: auto;
+  height: 100%;
+  border-radius: 1000px;
+  position: absolute;
+  background-color: #fff;
+  aspect-ratio: 1/1;
+  right: 0px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 .section__form {
   display: flex;
@@ -64,10 +124,17 @@ header {
 .input-wrap {
   display: flex;
   align-items: center;
-  background-color: #fff;
+  background-color: var(--bg-secondary);
+  color: var(--button-bg);
   padding: 10px 20px;
   gap: 10px;
   border-radius: 4px;
+}
+.input-wrap input {
+  color: var(--button-bg);
+}
+.loader path {
+  fill: var(--button-color);
 }
 .section__form form button {
   background: #000;
@@ -173,6 +240,8 @@ header {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  background-color: var(--button-bg);
+  color: var(--button-color);
 }
 .section__form button[type="submit"] .loader {
   position: absolute;
@@ -180,7 +249,8 @@ header {
   height: 100%;
   left: 0px;
   top: 0px;
-  background-color: #000;
+  background-color: var(--button-bg);
+  color: var(--button-color);
   display: none;
   justify-content: center;
   align-items: center;
@@ -194,6 +264,9 @@ header {
 }
 /* media query */
 @media (max-width: 768px) {
+  header {
+    padding: 20px 40px;
+  }
   .input-wrap input {
     min-width: 150px;
   }
@@ -201,13 +274,16 @@ header {
     font-size: 12px;
     padding: 10px;
   }
+  .info_overlay {
+    min-width: 300px;
+  }
   #map {
     max-width: 300px;
   }
 }
-/* .leaflet-layer,
-.leaflet-control-zoom-in,
-.leaflet-control-zoom-out,
-.leaflet-control-attribution {
+[data-mode="dark"] .leaflet-layer,
+[data-mode="dark"] .leaflet-control-zoom-in,
+[data-mode="dark"] .leaflet-control-zoom-out,
+[data-mode="dark"] .leaflet-control-attribution {
   filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
-} */
+}

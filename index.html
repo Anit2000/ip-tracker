@@ -13,11 +13,19 @@
     />
     <title>Ip Tracker</title>
   </head>
-  <body>
+  <body data-mode="">
     <div class="pixel-bg"></div>
     <div class="bg"></div>
     <header>
       <h1 class="logo">Ip tracker</h1>
+      <div class="color_toggle">
+        <span class="toggle_btn">
+          <input id="light" type="radio" name="color-mode" value="light" />
+          <label for="light" class="circle_btn"></label>
+          <input id="dark" type="radio" name="color-mode" value="dark" />
+          <label for="dark" class="circle_btn"></label>
+        </span>
+      </div>
     </header>
     <main>
       <section class="section__form">
@@ -144,6 +152,7 @@
     </main>
 
     <script type="module" src="/main.js"></script>
+    <script type="module" src="/theme.js"></script>
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
