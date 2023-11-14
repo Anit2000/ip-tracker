@@ -1,3 +1,8 @@
+/* 
+  function to store response to prevent excess network calls
+  @params ip : type String
+          fn : type Function
+*/
 export async function memoize(ip, fn) {
   let checkStorage = localStorage.getItem("ip_values");
   let response;
