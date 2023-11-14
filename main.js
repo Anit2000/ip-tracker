@@ -1,5 +1,6 @@
 import "./style.css";
 import { updateView } from "./map";
+import { memoize } from "./helper";
 /* function to retrieve ip or domain info
 @params ip : type Strig
  */
