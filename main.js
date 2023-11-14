@@ -106,7 +106,8 @@ async function submissionHandler(e) {
   } else {
     displayError("", false);
     try {
-      let data = await getIpInfo(ip);
+      let data = await memoize(ip, getIpInfo);
+      console.log(data, "here")
       data.status == "success"
         ? updateData(data)
         : displayError("Invalid Domain or IP");

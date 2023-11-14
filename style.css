@@ -18,11 +18,19 @@
     --secondary-color: #000;
   }
 }
+[data-mode="dark"] {
+  --button-bg: #fff;
+  --button-color: #000;
+  --primary-color: #fff;
+  --bg-secondary: #373737;
+  --secondary-color: #000;
+}
 * {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  -webkit-tap-highlight-color: transparent !important;
 }
 body {
   min-width: 320px;
@@ -169,7 +177,7 @@ label[for="dark"] {
   border: none;
   background-color: transparent;
   outline: none;
-  min-width: 250px;
+  min-width: 400px;
 }
 .map__container {
   display: flex;
@@ -179,7 +187,7 @@ label[for="dark"] {
   height: 380px;
   border-radius: 10px;
   overflow: hidden;
-  width: 450px;
+  width: 575px;
 }
 .info_overlay {
   position: fixed;
@@ -269,6 +277,7 @@ label[for="dark"] {
   }
   .input-wrap input {
     min-width: 150px;
+    max-width: 200px;
   }
   .section__form form button {
     font-size: 12px;
