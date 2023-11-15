@@ -1,6 +1,7 @@
 import "./style.css";
-import { updateView } from "./map";
+import { updateView, map } from "./map";
 import { memoize } from "./helper";
+
 /* function to retrieve ip or domain info
 @params ip : type Strig
  */
@@ -85,12 +86,15 @@ function tooggleInfoDisplay() {
          display : type boolean
 */
 function displayError(message = "", display = true) {
+  let mapContainer = document.querySelector(".map__container");
   let error_box = document.querySelector(".error_box");
   let error_message = document.querySelector(".error_message");
   if (display) {
     error_box.classList.add("error");
     error_message.textContent = message;
+    mapContainer.classList.remove("active");
   } else {
+    mapContainer.classList.add("active");
     error_box.classList.remove("error");
   }
 }
@@ -106,7 +110,7 @@ async function submissionHandler(e) {
   } else {
     displayError("", false);
     try {
-      let data = await getIpInfo(ip);
+      let data = await memoize(ip, getIpInfo);
       data.status == "success"
         ? updateData(data)
         : displayError("Invalid Domain or IP");

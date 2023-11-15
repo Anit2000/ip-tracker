@@ -1,5 +1,5 @@
 // setting map
-let map = L.map("map").setView([51.505, -0.09], 13);
+export let map = L.map("map").setView([51.505, -0.09], 13);
 L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
   maxZoom: 19,
   attribution:
@@ -9,9 +9,10 @@ L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
 /*
     @params coords : type Object {lat: latitude, long : longituge}
 */
+
 export function updateView({ lat, long }) {
   //setting map center
-  map.setView([lat, long], 19);
+  L.map("map").setView([lat, long], 19);
 
   //setting marker
   L.marker([lat, long]).addTo(map);

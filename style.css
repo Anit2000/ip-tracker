@@ -73,6 +73,19 @@ header {
   justify-content: space-between;
   align-items: center;
 }
+.actions_wrapper {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.actions_wrapper button[data-role="history-toggle"] {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  color: var(--button-bg);
+  border: none;
+  cursor: pointer;
+}
 .toggle_btn {
   width: 40px;
   height: 20px;
@@ -172,8 +185,11 @@ label[for="dark"] {
   min-width: 250px;
 }
 .map__container {
-  display: flex;
+  display: none;
   justify-content: center;
+}
+.map__container.active {
+  display: flex;
 }
 #map {
   height: 380px;
