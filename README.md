@@ -31,8 +31,8 @@ This is a simple IP tracker app built using Vanilla JavaScript. It allows users 
 ## stack used
 
 1. [Vanilla js](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-2. [ip-api.com](https://ipapi.com/)
-3. [leafletjs](https://leafletjs.com/)
+2. [Ip-api.com](https://ipapi.com/)
+3. [Leafletjs](https://leafletjs.com/)
 4. [Vite](https://vitejs.dev/)
 
 ## Deployment
