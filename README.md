@@ -28,7 +28,7 @@ This is a simple IP tracker app built using Vanilla JavaScript. It allows users 
 
 ![image](https://github.com/Anit2000/ip-tracker/assets/78334350/ec940c8a-addd-42e9-a471-b7092ce34dc2)
 
-## stack used
+## Stack Used
 
 1. [Vanilla js](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 2. [Ip-api.com](https://ipapi.com/)
