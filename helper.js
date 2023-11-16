@@ -13,13 +13,28 @@ export async function memoize(ip, fn) {
       response = data[ip];
     } else {
       response = await fn(ip);
-      storedData.unshift({ [ip]: response })
-      localStorage.setItem("ip_values", JSON.stringify(storedData))
+      if (response.status == 'success') {
+        storedData.unshift({ [ip]: response })
+        localStorage.setItem("ip_values", JSON.stringify(storedData));
+        loadSearch();
+      }
     }
   } else {
     response = await fn(ip);
     localStorage.setItem("ip_values", JSON.stringify([{ [ip]: response }]));
+    loadSearch();
   }
   return response;
 }
 
+export function loadSearch() {
+  let checkStorage = localStorage.getItem("ip_values");
+  let searchContainer = document.querySelector(".history_content");
+  if (checkStorage) {
+    let data = JSON.parse(checkStorage);
+    let html = data.map(el => `<li data-role="history-load" data-value="${Object.keys(el)[0]}">${Object.keys(el)[0]}</li>`).join("");
+    searchContainer.innerHTML = data.length > 1 ? html : '<p>No recent searches found</p>';
+  } else {
+    searchContainer.innerHTML = '<p>No recent searches found</p>';
+  }
+}

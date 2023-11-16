@@ -1,5 +1,8 @@
-import { updateView } from "./map";
-import { memoize } from "./helper";
+import { updateView, map } from "./map";
+import { memoize, loadSearch } from "./helper";
+
+/* load search */
+loadSearch();
 /* function to retrieve ip or domain info
 @params ip : type Strig
  */
@@ -25,23 +28,7 @@ const getIpInfo = async (ip) => {
 function displayInfo(data) {
   let infoContainer = document.querySelector(".info_overlay_container");
   let infoHtml = ` <div class="info_overlay_header">
-            <h3>Showing results for ${data.query}</h3>
-            <button class="ino_toggle">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+            <h3>Showing results for "${data.query}"</h3>
           </div>
           <div class="info_container">
             <ul>
@@ -63,19 +50,26 @@ function displayInfo(data) {
   tooggleInfoDisplay();
 }
 // info overlay display toggle function
-function tooggleInfoDisplay() {
+function tooggleInfoDisplay(display = true) {
   let toggleWrapper = document.querySelector(".info_overlay");
-  if (toggleWrapper.classList.contains("active")) {
+  let mapContainer = document.querySelector(".map__container");
+  if (!display && toggleWrapper.classList.contains("active")) {
     toggleWrapper.classList.remove("active");
     toggleWrapper.style.opacity = "0";
+    mapContainer.classList.remove("active");
     setTimeout(() => {
       toggleWrapper.style.display = "none";
     }, 0);
-  } else {
+  } else if (display) {
     toggleWrapper.style.display = "block";
     setTimeout(() => {
       toggleWrapper.classList.add("active");
       toggleWrapper.style.opacity = "1";
+      mapContainer.classList.add("active");
+      map.invalidateSize(true);
+      toggleWrapper.scrollIntoView({
+        behavior: 'smooth'
+      })
     }, 0);
   }
 }
@@ -89,6 +83,7 @@ function displayError(message = "", display = true) {
   if (display) {
     error_box.classList.add("error");
     error_message.textContent = message;
+    tooggleInfoDisplay(false)
   } else {
     error_box.classList.remove("error");
   }
@@ -106,7 +101,6 @@ async function submissionHandler(e) {
     displayError("", false);
     try {
       let data = await memoize(ip, getIpInfo);
-      console.log(data, "here")
       data.status == "success"
         ? updateData(data)
         : displayError("Invalid Domain or IP");
@@ -121,8 +115,27 @@ function updateData(data) {
   displayInfo(data);
   updateView({ lat: data.lat, long: data.lon });
 }
+
+/* 
+  searching fromn history
+  @params ip : type String
+*/
+async function searchFromHistory(ip) {
+  displayError("", false);
+  try {
+    let data = await memoize(ip, getIpInfo);
+    data.status == "success"
+      ? updateData(data)
+      : displayError("Invalid Domain or IP");
+  } catch (err) {
+    displayError("Invalid Domain or IP");
+  }
+}
 // ataching listeners
 let ipForm = document.querySelector(".section__form form");
+let searchInput = ipForm.querySelector("input");
+let clearbtn = ipForm.querySelector('[data-role="clear-search"]');
+let historyToggleBtn = document.querySelector(".history_toggle");
 
 document.addEventListener("click", (e) => {
   if (
@@ -132,4 +145,26 @@ document.addEventListener("click", (e) => {
     tooggleInfoDisplay();
   }
 });
+
+document.addEventListener('click', (e) => {
+  if (e.target.closest('[data-role="history-load"]') || e.target.dataset.role == 'history-load') {
+    let el = e.target.dataset.role = 'history-load' ? e.target : e.target.closest('[data-role="history-load"]');
+    let ipVal = el.dataset.value;
+    searchFromHistory(ipVal);
+    searchInput.value = ipVal;
+    searchInput.dispatchEvent(new Event("input"));
+  }
+})
+clearbtn.addEventListener('click', () => {
+  searchInput.value = "";
+  searchInput.dispatchEvent(new Event("input"));
+  tooggleInfoDisplay(false);
+})
+searchInput.addEventListener("input", function () {
+  searchInput.value.length > 1 ? clearbtn.classList.add('active') : clearbtn.classList.remove('active');
+})
+historyToggleBtn.addEventListener('click', function () {
+  let wrapper = this.closest(".history_toggle_container");
+  wrapper.classList.toggle("active");
+})
 ipForm.addEventListener("submit", submissionHandler);
