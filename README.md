@@ -30,8 +30,8 @@ This is a simple IP tracker app built using Vanilla JavaScript. It allows users 
 
 ## stack used
 
-1. Vanilla js
-2. ip-api.com
+1. <https://developer.mozilla.org/en-US/docs/Web/JavaScript>Vanilla js</>
+2. <https://vitejs.dev/>ip-api.com</>
 3. Vite
 
 ## Deployment
