@@ -10,7 +10,7 @@ const getIpInfo = async (ip) => {
   let sectionWrapper = document.querySelector(".section__form");
   sectionWrapper.classList.add("loading");
   try {
-    let ipData = await fetch(`http://ip-api.com/json/${ip}`)
+    let ipData = await fetch(`https://api.ipapi.com/api/${ip}?access_key=${import.meta.env.VITE_API_TOKEN}`)
       .then((res) => res.json())
       .then((data) => data);
     sectionWrapper.classList.remove("loading");
@@ -28,21 +28,21 @@ const getIpInfo = async (ip) => {
 function displayInfo(data) {
   let infoContainer = document.querySelector(".info_overlay_container");
   let infoHtml = ` <div class="info_overlay_header">
-            <h3>Showing results for "${data.query}"</h3>
+            <h3>Showing results for "${data.ip}"</h3>
           </div>
           <div class="info_container">
             <ul>
               <li>
                 <p>Region</p>
-                <p>${data.region}</p>
+                <p>${data.region_name}</p>
               </li>
               <li>
                 <p>Country</p>
-                <p>${data.country}</p>
+                <p>${data.country_name}</p>
               </li>
               <li>
                 <p>ISP</p>
-                <p>${data.isp}</p>
+                <p>${data.connection.isp}</p>
               </li>
             </ul>
           </div>`;
@@ -101,7 +101,8 @@ async function submissionHandler(e) {
     displayError("", false);
     try {
       let data = await memoize(ip, getIpInfo);
-      data.status == "success"
+      console.log(data);
+      !data.status
         ? updateData(data)
         : displayError("Invalid Domain or IP");
     } catch (err) {
@@ -113,7 +114,7 @@ async function submissionHandler(e) {
 // update data
 function updateData(data) {
   displayInfo(data);
-  updateView({ lat: data.lat, long: data.lon });
+  updateView({ lat: data.latitude, long: data.longitude });
 }
 
 /* 
@@ -124,7 +125,7 @@ async function searchFromHistory(ip) {
   displayError("", false);
   try {
     let data = await memoize(ip, getIpInfo);
-    data.status == "success"
+    !data.status
       ? updateData(data)
       : displayError("Invalid Domain or IP");
   } catch (err) {
@@ -147,8 +148,8 @@ document.addEventListener("click", (e) => {
 });
 
 document.addEventListener('click', (e) => {
-  if (e.target.closest('[data-role="history-load"]') || e.target.dataset.role == 'history-load') {
-    let el = e.target.dataset.role = 'history-load' ? e.target : e.target.closest('[data-role="history-load"]');
+  if (e.target.closest('.history-load') || e.target.classList.contains("history-load")) {
+    let el = e.target.classList.contains("history-load") ? e.target : e.target.closest('.history-load');
     let ipVal = el.dataset.value;
     searchFromHistory(ipVal);
     searchInput.value = ipVal;

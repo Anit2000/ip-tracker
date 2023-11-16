@@ -13,7 +13,7 @@ export async function memoize(ip, fn) {
       response = data[ip];
     } else {
       response = await fn(ip);
-      if (response.status == 'success') {
+      if (!response.status) {
         storedData.unshift({ [ip]: response })
         localStorage.setItem("ip_values", JSON.stringify(storedData));
         loadSearch();
@@ -21,9 +21,14 @@ export async function memoize(ip, fn) {
     }
   } else {
     response = await fn(ip);
-    localStorage.setItem("ip_values", JSON.stringify([{ [ip]: response }]));
-    loadSearch();
+    if (!response.status) {
+      let storedData = [];
+      storedData.unshift({ [ip]: response })
+      localStorage.setItem("ip_values", JSON.stringify(storedData));
+      loadSearch();
+    }
   }
+  console.log(response)
   return response;
 }
 
@@ -32,8 +37,9 @@ export function loadSearch() {
   let searchContainer = document.querySelector(".history_content");
   if (checkStorage) {
     let data = JSON.parse(checkStorage);
-    let html = data.map(el => `<li data-role="history-load" data-value="${Object.keys(el)[0]}">${Object.keys(el)[0]}</li>`).join("");
-    searchContainer.innerHTML = data.length > 1 ? html : '<p>No recent searches found</p>';
+    data.map(el => console.log(Object.keys(el)[0]))
+    let html = data.map(el => `<li class="history-load" data-value="${Object.keys(el)[0]}">${Object.keys(el)[0]}</li>`).join("");
+    searchContainer.innerHTML = data.length > 0 ? html : '<p>No recent searches found</p>';
   } else {
     searchContainer.innerHTML = '<p>No recent searches found</p>';
   }
