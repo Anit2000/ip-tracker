@@ -30,11 +30,11 @@ This is a simple IP tracker app built using Vanilla JavaScript. It allows users 
 
 ## stack used
 
-1. <https://developer.mozilla.org/en-US/docs/Web/JavaScript>Vanilla js</>
-2. <https://vitejs.dev/>ip-api.com</>
-3. Vite
+1. [Vanilla js](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+   2.ip-api.com
+2. [Vite] (https://vitejs.dev/)
 
 ## Deployment
 
-For development i have used Vercel.
+For deployment i have used Vercel.
 Preview link - <https://ip-tracker-mu-peach.vercel.app/>
